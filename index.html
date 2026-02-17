@@ -5,6 +5,29 @@
 </head>
 <body>
   <h1>Hello Cloud 🚀</h1>
-  <p>Ini website saya di cloud!</p>
+
+  <h2>Kirim Nama</h2>
+  <input type="text" id="nama" placeholder="Masukkan nama">
+  <button onclick="kirimData()">Kirim</button>
+
+  <p id="hasil"></p>
+
+  <script>
+    function kirimData() {
+      const nama = document.getElementById("nama").value;
+
+      fetch("/api/kirim", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ nama: nama })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("hasil").innerText = data.message;
+      });
+    }
+  </script>
 </body>
 </html>
